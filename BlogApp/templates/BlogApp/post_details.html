@@ -1,0 +1,57 @@
+{% extends 'BlogApp/base.html' %} {% block content %}
+<div class="card mb-4">
+  <div class="card-header">
+    <h2>
+      <img
+        class="rounded-circle article-img m-2"
+        src="{{post.author.profile.image.url}}"
+      />
+
+      By {{post.author}}
+    </h2>
+    <p class="card-text"> Date {{post.date_posted |date:"F d, Y"}} At {{post.date_posted|time:'H:i A'}}
+      {% if post.author ==  user %} 
+      <a class='btn btn-outline-secondary btn-sm mt-1' href="{% url 'post-delete' post.id %}">delete</a>
+     {% endif %}</p></div>
+
+  
+  <h2 class="card-title ml-2">
+    {{post.title}} 
+  </h2>
+  <div class="card-body">
+    <p class="card-text">{{post.content}}</p>
+
+    {% for comment in comments %}
+    <h3>Comment{{ comments.count|pluralize }} </h3>
+    <div class="card-body ">
+      <h2>
+        <img
+          class="rounded-circle article-img m-2"
+          src="{{comment.author.profile.image.url}}"
+        />
+  
+        By {{comment.author}}
+        {% if comment.author ==  user %} 
+      <a class='btn btn-outline-secondary btn-sm mt-1' href="{% url 'comment-delete' comment.id %}">delete</a>
+     {% endif %}
+      </h2>
+      <p class="card-text"> Date {{comment.date_posted |date:"F d, Y"}} At {{comment.date_posted|time:'H:i A'}}</p></div>
+      <p class="card-text">{{comment.content}}
+        
+      </p>
+
+    </div>
+    
+      
+    {% empty %}
+    <p>No comment Yet!</p>
+    {% endfor %}
+    <div class="d-flex mr-2">
+      <a href="{% url 'blog-home' %}" class="card-link">Back</a>
+      <a href="{% url 'add-comment' post.id %}" class="card-link">Add Comment</a>
+    </div>
+  </div>
+  </div>
+
+
+{% endblock content %}
