@@ -17,11 +17,11 @@ def register(request):
            last_name = form.cleaned_data.get('last_name')
            email= form.cleaned_data.get('email')
            messages.success(request,f'your account has been created you can login now!')
-           subject= f'Hi {first_name}  {last_name} Welcome, to Our Website!'
-           message='Thank You for signing up on our Website'
-           from_email=[settings.EMAIL_HOST_USER]
-           recipient_list=[email]
-           send_mail(subject,message,from_email,recipient_list)
+        #    subject= f'Hi {first_name}  {last_name} Welcome, to Our Website!'
+        #    message='Thank You for signing up on our Website'
+        #    from_email=[settings.EMAIL_HOST_USER]
+        #    recipient_list=[email]
+        #    send_mail(subject,message,from_email,recipient_list)
            return redirect('login')
     else:
      form=UserRegisterForm()
